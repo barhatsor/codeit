@@ -369,14 +369,6 @@ body .sr-only {
   display: none;
 }
 
-body [data-footnote-ref]::before {
-  content: '[';
-}
-
-body [data-footnote-ref]::after {
-  content: ']';
-}
-
 body .footnotes {
   font-size: 85%;
   color: var(--color-fg-muted);
