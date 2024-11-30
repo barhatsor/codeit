@@ -2,7 +2,6 @@
   typeof exports == "object" && typeof module < "u" ? module.exports = n() : typeof define == "function" && define.amd ? define(n) : (i = typeof globalThis < "u" ? globalThis : i || self, i.markedAlert = n())
 })(this, function() {
   "use strict";
-
   const i = [{
     type: "note",
     icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M11 7H13V9H11V7ZM11 11H13V17H11V11ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z" fill="currentColor"></path> </svg>'
@@ -29,66 +28,64 @@
 *`
   }
 
-  function f(a) {
+  function g(a) {
     return a.slice(0, 1).toUpperCase() + a.slice(1).toLowerCase()
   }
 
-  function g(a = {}) {
+  function m(a = {}) {
     const {
       className: s = "markdown-alert",
       variants: c = []
-    } = a, m = n(c);
+    } = a, w = n(c);
     return {
-      walkTokens(t) {
-        var e, v, u;
-        if (t.type !== "blockquote") return;
-        const o = m.find(({
+      walkTokens(e) {
+        var t, v, u, f;
+        if (e.type !== "blockquote") return;
+        const o = w.find(({
           type: r
-        }) => new RegExp(d(r)).test(t.text));
+        }) => new RegExp(d(r)).test(e.text));
         if (o) {
           const {
             type: r,
-            icon: w,
-            title: Z = f(r),
-            titleClassName: x = `${s}-title`
+            icon: Z,
+            title: x = g(r),
+            titleClassName: y = `${s}-title`
           } = o, h = new RegExp(d(r));
-          Object.assign(t, {
+          Object.assign(e, {
             type: "alert",
             meta: {
               className: s,
               variant: r,
-              icon: w,
-              title: Z,
-              titleClassName: x
+              icon: Z,
+              title: x,
+              titleClassName: y
             }
           });
-          const l = (e = t.tokens) == null ? void 0 : e[0];
+          const l = (t = e.tokens) == null ? void 0 : t[0];
           if ((v = l.raw) == null ? void 0 : v.replace(h, "").trim()) {
-            l.tokens = l.tokens.filter(y => y.type !== "br");
             const p = l.tokens[0];
             Object.assign(p, {
               raw: p.raw.replace(h, ""),
               text: p.text.replace(h, "")
-            })
-          } else(u = t.tokens) == null || u.shift()
+            }), ((u = l.tokens[1]) == null ? void 0 : u.type) === "br" && l.tokens.splice(1, 1)
+          } else(f = e.tokens) == null || f.shift()
         }
       },
       extensions: [{
         name: "alert",
         level: "block",
         renderer({
-          meta: t,
+          meta: e,
           tokens: o = []
         }) {
-          let e = `<div class="${t.className} ${t.className}-${t.variant}">
+          let t = `<div class="${e.className} ${e.className}-${e.variant}">
 `;
-          return e += `<p class="${t.titleClassName}">`, e += t.icon, e += t.title, e += `</p>
-`, e += this.parser.parse(o), e += `</div>
-`, e
+          return t += `<p class="${e.titleClassName}">`, t += e.icon, t += e.title, t += `</p>
+`, t += this.parser.parse(o), t += `</div>
+`, t
         }
       }]
     }
   }
-  return g
+  return m
 });
-
