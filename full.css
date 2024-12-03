@@ -50,8 +50,6 @@ body cd-el {
   font-size: inherit;
   position: relative;
   box-sizing: border-box;
-  white-space: pre;
-  word-wrap: normal;
   padding-bottom: calc(41px + 10.5px);
   scroll-padding-bottom: calc(41px + 10.5px);
 }
